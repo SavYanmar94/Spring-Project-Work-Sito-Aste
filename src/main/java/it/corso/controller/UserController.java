@@ -49,7 +49,7 @@ public class UserController {
 	public ResponseEntity<ObjectNode> userLogin(@RequestBody User user)
 	{
 		ObjectNode response = userService.userLogin(user);
-		int httpCode = response.get("message").asText().equals("Non autorizzato") ? 401 : 202;
+		int httpCode = response.get("message").asText().equals("Non sei autorizzato") ? 401 : 202;
 		return new ResponseEntity<ObjectNode>(response, HttpStatusCode.valueOf(httpCode));
 	}
 	

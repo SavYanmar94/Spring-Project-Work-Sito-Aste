@@ -52,7 +52,7 @@ public class Item
 	private String state;
 
 	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "users", referencedColumnName = "id")
+	@JoinColumn(name = "seller_id", referencedColumnName = "id")
 	private User user;
 	
 	@OneToMany
