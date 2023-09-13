@@ -33,7 +33,7 @@ public class Offer
 	private String state;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "items", referencedColumnName = "id")
+	@JoinColumn(name = "item_id", referencedColumnName = "id")
 	private Item item;
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)

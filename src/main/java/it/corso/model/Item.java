@@ -57,7 +57,7 @@ public class Item
 	
 	@OneToMany
     (
-            mappedBy = "offers",
+            mappedBy = "item",
             cascade = CascadeType.REFRESH,
             fetch = FetchType.EAGER, ///determina il tempo in cui i dati vengono caricati. i tempi possibili sono 2: eager e lazy(pigro) 
             orphanRemoval = true // per far eliminare i dati nel momento in cui viene rimosso l'autore e quindi non ne avrebbe più uno

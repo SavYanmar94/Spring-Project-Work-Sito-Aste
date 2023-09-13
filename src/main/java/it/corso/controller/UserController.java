@@ -1,0 +1,68 @@
+package it.corso.controller;
+
+import java.util.regex.Pattern;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import it.corso.helper.PasswordValidationException;
+
+import it.corso.model.User;
+import it.corso.service.UserService;
+import jakarta.validation.Valid;
+
+@RestController
+@RequestMapping("/auctions/user")
+@CrossOrigin(origins = {"*"})
+public class UserController {
+
+	@Autowired
+	private UserService userService;
+	
+	// endpoint #1: registrazione cliente  localhost:8080/auctions/user/reg
+	@PostMapping("/reg")
+	public ResponseEntity<ObjectNode> userRegistration(@Valid @RequestBody User user)
+	{
+		/*if(!Pattern.matches("(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,10}", 
+				user.getPassword()))
+			throw new PasswordValidationException();*/
+		ObjectNode response = userService.userRegistration(user);
+		
+		return new ResponseEntity<ObjectNode>(response,
+				HttpStatusCode.valueOf(response.get("code").asInt()));
+		
+	}
+	
+	// endpoint #2: login cliente  localhost:8080/auctions/user/login
+	
+	@PutMapping("/login")
+	public ResponseEntity<ObjectNode> userLogin(@RequestBody User user)
+	{
+		ObjectNode response = userService.userLogin(user);
+		int httpCode = response.get("message").asText().equals("Non autorizzato") ? 401 : 202;
+		return new ResponseEntity<ObjectNode>(response, HttpStatusCode.valueOf(httpCode));
+	}
+	
+	
+	// endpoint #3: logout cliente  localhost:8080/auctions/user/logout/{user token}
+	@GetMapping("/logout/{tkn}")
+	public ResponseEntity<ObjectNode> customerLogout(@PathVariable("tkn") String token)
+	
+	{
+		ObjectNode response = userService.userLogout(token);
+		return new ResponseEntity<ObjectNode>(response,
+				HttpStatusCode.valueOf(response.get("code").asInt()));
+	}
+	
+	
+}
