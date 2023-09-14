@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService {
 	        existing.setPassword(user.getPassword());
 	        existing.setProfileImage(user.getProfileImage());
 	        
-	        Optional<HomeAddress> homeAddressOptional = homeAddressDao.findById(user.getId());
+	        Optional<HomeAddress> homeAddressOptional = homeAddressDao.findById(homeAddress.getId());
 	        if (!homeAddressOptional.isPresent())
 	            return responseManager.getResponse(404, "Indirizzo di fatturazione non trovato");
 	        
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
 	            existingHA.setProvince(homeAddress.getProvince());
 	        
 	        
-	        Optional<ShippingAddress> shippingAddressOptional = shippingAddressDao.findById(user.getId());
+	        Optional<ShippingAddress> shippingAddressOptional = shippingAddressDao.findById(shippingAddress.getId());
 		    if (!shippingAddressOptional.isPresent())
 		        return responseManager.getResponse(404, "Indirizzo di consegna non trovato");  
 	           
