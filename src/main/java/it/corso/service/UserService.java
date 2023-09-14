@@ -2,6 +2,8 @@ package it.corso.service;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import it.corso.model.HomeAddress;
+import it.corso.model.ShippingAddress;
 import it.corso.model.User;
 
 public interface UserService {
@@ -13,8 +15,8 @@ public interface UserService {
 	
 	ObjectNode userLogout(String token);
 	
-	ObjectNode userUpdate(User user, String token);
-	
+	ObjectNode userUpdate(User user, String token , HomeAddress homeAddress, ShippingAddress shippingAddress);
+	//chiedere a Davide se va bene, accettazione di due argomenti in piu 
 	
 
 }
