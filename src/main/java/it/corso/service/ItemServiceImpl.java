@@ -30,7 +30,7 @@ public class ItemServiceImpl implements ItemService {
 	@Autowired
 	private OfferDao offerDao;
 
-	
+	//registrazione item 
 	@Override
 	public ObjectNode itemRegistration(Item item, String token) {
 		if(userDao.findByAuthToken(token) == null)
