@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	 @Override
-	    public ObjectNode userUpdate(User user, String token,HomeAddress homeAddress) {
+	    public ObjectNode userUpdate(User user, String token) {
 	        if (userDao.findByAuthToken(token) == null)
 	            return responseManager.getResponse(401, "Non autorizzato");
 	        Optional<User> userOptional = userDao.findById(user.getId());
@@ -85,33 +85,34 @@ public class UserServiceImpl implements UserService {
 	        existing.setPassword(user.getPassword());
 	        existing.setProfileImage(user.getProfileImage());
 	        
-	        Optional<HomeAddress> homeAddressOptional = homeAddressDao.findById(homeAddress.getId());
+	        Optional<HomeAddress> homeAddressOptional = homeAddressDao.findById(user.getHomeAddress().getId());
 	        if (!homeAddressOptional.isPresent())
 	            return responseManager.getResponse(404, "Indirizzo di fatturazione non trovato");
 	        
 	        HomeAddress existingHA = homeAddressOptional.get();
 
-	            existingHA.setStreet(homeAddress.getStreet());
-	            existingHA.setCivic(homeAddress.getCivic());
-	            existingHA.setCap(homeAddress.getCap());
-	            existingHA.setTown(homeAddress.getTown());
-	            existingHA.setProvince(homeAddress.getProvince());
+	            existingHA.setStreet(user.getHomeAddress().getStreet());
+	            existingHA.setCivic(user.getHomeAddress().getCivic());
+	            existingHA.setCap(user.getHomeAddress().getCap());
+	            existingHA.setTown(user.getHomeAddress().getTown());
+	            existingHA.setProvince(user.getHomeAddress().getProvince());
 	        
 	        
-	        /*Optional<ShippingAddress> shippingAddressOptional = shippingAddressDao.findById(shippingAddress.getId());
+	        Optional<ShippingAddress> shippingAddressOptional = shippingAddressDao.findById(user.getShippingAddress().getId());
 		    if (!shippingAddressOptional.isPresent())
 		        return responseManager.getResponse(404, "Indirizzo di consegna non trovato");  
 	           
 		    ShippingAddress existingSA = shippingAddressOptional.get();
 
-            existingSA.setStreet(shippingAddress.getStreet());
-            existingSA.setCivic(shippingAddress.getCivic());
-            existingSA.setCap(shippingAddress.getCap());
-            existingSA.setTown(shippingAddress.getTown());
-            existingSA.setProvince(shippingAddress.getProvince());*/
-		    
+            existingSA.setStreet(user.getShippingAddress().getStreet());
+            existingSA.setCivic(user.getShippingAddress().getCivic());
+            existingSA.setCap(user.getShippingAddress().getCap());
+            existingSA.setTown(user.getShippingAddress().getTown());
+            existingSA.setProvince(user.getShippingAddress().getProvince());
+		    existing.setHomeAddress(existingHA);
+		    existing.setShippingAddress(existingSA);
 	        userDao.save(existing);
-	        homeAddressDao.save(existingHA);
+	        //homeAddressDao.save(existingHA);
 	        //shippingAddressDao.save(existingSA);
 	        return responseManager.getResponse(202, "Dati User Aggiornati");
 	    }

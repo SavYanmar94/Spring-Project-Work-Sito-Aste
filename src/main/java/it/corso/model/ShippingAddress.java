@@ -31,7 +31,7 @@ public class ShippingAddress
 			@Column(name = "cap")
 			private String cap;
 			
-			@Pattern(regexp = "[a-zA-Z0-9\\\\sàèìòù'.]{1,50}", message = "Errore nel campo città")
+			@Pattern(regexp = "[a-zA-Z0-9\\sàèìòù'.]{1,50}", message = "Errore nel campo città")
 			@Column(name = "town")
 			private String town;
 			

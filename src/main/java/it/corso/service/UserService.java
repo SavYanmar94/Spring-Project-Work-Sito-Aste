@@ -15,7 +15,7 @@ public interface UserService {
 	
 	ObjectNode userLogout(String token);
 	
-	ObjectNode userUpdate(User user, String token , HomeAddress homeAddress);
+	ObjectNode userUpdate(User user, String token);
 	//chiedere a Davide se va bene, accettazione di due argomenti in piu 
 	
 

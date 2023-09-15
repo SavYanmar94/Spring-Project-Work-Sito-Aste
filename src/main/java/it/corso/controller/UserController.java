@@ -1,11 +1,14 @@
 package it.corso.controller;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -70,9 +73,9 @@ public class UserController {
 	//endpoint #4: modifica dati user tranne nickname e status localhost:8080/auctions/user/update/{usertoken}
 	
 		@PutMapping("/update/{tkn}")
-		public ResponseEntity<ObjectNode> userDataUpdate(@RequestBody User user, @PathVariable("tkn") String token, HomeAddress homeAddress)
+		public ResponseEntity<ObjectNode> userDataUpdate(@Valid @RequestBody User user, @PathVariable("tkn") String token)
 		{
-			ObjectNode response = userService.userUpdate(user, token, homeAddress);
+			ObjectNode response = userService.userUpdate(user, token);
 			return new ResponseEntity<ObjectNode>(response, HttpStatusCode.valueOf(response.get("code").asInt()));
 		}
 	
@@ -81,6 +84,16 @@ public class UserController {
 		public ResponseEntity<String> handlePasswordValidationException(PasswordValidationException e)
 		{
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		
+		// metodo per gestione eccezione validazione dati generali
+		@ExceptionHandler(BindException.class)
+		public ResponseEntity<Map<String, String>> handleValidationException(BindException e)
+		{
+			Map<String, String> errors = new HashMap<>();
+			e.getBindingResult().getFieldErrors()
+				.forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
+			return ResponseEntity.badRequest().body(errors);
 		}
 	
 }
