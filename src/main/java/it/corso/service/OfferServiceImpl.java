@@ -47,7 +47,7 @@ public class OfferServiceImpl implements OfferService{
 		Optional<Item> itemOptional = itemDao.findById(offer.getItem().getId());
 		if(!itemOptional.isPresent())
 			return responseManager.getResponse(404, "Oggetto in vendita non trovato");
-		offer.setState("in corso");
+		offer.setState("In corso");
 		offerDao.save(offer);
 		return responseManager.getResponse(201, "Offerta Registrata");
 	}

@@ -70,9 +70,9 @@ public class UserController {
 	//endpoint #4: modifica dati user tranne nickname e status localhost:8080/auctions/user/update/{usertoken}
 	
 		@PutMapping("/update/{tkn}")
-		public ResponseEntity<ObjectNode> userDataUpdate(@RequestBody User user, @PathVariable("tkn") String token, HomeAddress homeAddress, ShippingAddress shippingAddrress)
+		public ResponseEntity<ObjectNode> userDataUpdate(@RequestBody User user, @PathVariable("tkn") String token, HomeAddress homeAddress)
 		{
-			ObjectNode response = userService.userUpdate(user, token, homeAddress, shippingAddrress);
+			ObjectNode response = userService.userUpdate(user, token, homeAddress);
 			return new ResponseEntity<ObjectNode>(response, HttpStatusCode.valueOf(response.get("code").asInt()));
 		}
 	

@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	 @Override
-	    public ObjectNode userUpdate(User user, String token,HomeAddress homeAddress,ShippingAddress shippingAddress) {
+	    public ObjectNode userUpdate(User user, String token,HomeAddress homeAddress) {
 	        if (userDao.findByAuthToken(token) == null)
 	            return responseManager.getResponse(401, "Non autorizzato");
 	        Optional<User> userOptional = userDao.findById(user.getId());
@@ -98,7 +98,7 @@ public class UserServiceImpl implements UserService {
 	            existingHA.setProvince(homeAddress.getProvince());
 	        
 	        
-	        Optional<ShippingAddress> shippingAddressOptional = shippingAddressDao.findById(shippingAddress.getId());
+	        /*Optional<ShippingAddress> shippingAddressOptional = shippingAddressDao.findById(shippingAddress.getId());
 		    if (!shippingAddressOptional.isPresent())
 		        return responseManager.getResponse(404, "Indirizzo di consegna non trovato");  
 	           
@@ -108,11 +108,11 @@ public class UserServiceImpl implements UserService {
             existingSA.setCivic(shippingAddress.getCivic());
             existingSA.setCap(shippingAddress.getCap());
             existingSA.setTown(shippingAddress.getTown());
-            existingSA.setProvince(shippingAddress.getProvince());
+            existingSA.setProvince(shippingAddress.getProvince());*/
 		    
 	        userDao.save(existing);
 	        homeAddressDao.save(existingHA);
-	        shippingAddressDao.save(existingSA);
+	        //shippingAddressDao.save(existingSA);
 	        return responseManager.getResponse(202, "Dati User Aggiornati");
 	    }
 
