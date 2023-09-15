@@ -47,7 +47,7 @@ public class ItemController {
 		return new ResponseEntity<ObjectNode>(response, HttpStatusCode.valueOf(response.get("code").asInt()));
 	}
 	
-	//endpoint 4: elenco dei item localhost:8080/auctions/item/get
+	//endpoint 4: elenco degli item localhost:8080/auctions/item/get
 	@GetMapping("/get")
 	public ResponseEntity<List<Item>> getItems() {
 			

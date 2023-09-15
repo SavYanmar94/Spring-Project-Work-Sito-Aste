@@ -13,7 +13,7 @@ public interface OfferService {
 	
 	//modifica offerta , solo lo stato 
 	//il programma in automatico la aggiorna 
-	ObjectNode offerUpdate(Offer offer);
+	ObjectNode offerUpdate(Offer offer,String token);
 	
 	//eliminazione offerta 
 	ObjectNode offerRemoval(int id, String token);

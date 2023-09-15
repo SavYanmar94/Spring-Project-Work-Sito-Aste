@@ -1,5 +1,6 @@
 package it.corso.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,11 +54,60 @@ public class OfferServiceImpl implements OfferService{
 	}
 
 	@Override
-	public ObjectNode offerUpdate(Offer offer) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	public ObjectNode offerUpdate(Offer offer, String token) {
+	    // Cambio dello stato dell'offerta in accettata
+	    if (userDao.findByAuthToken(token) == null)
+	        return responseManager.getResponse(401, "Non Autorizzato");
+	    
+	    // Cerca l'offerta nel database in base all'ID fornito.
+	    Optional<Offer> offerOptional = offerDao.findById(offer.getId());
 
+	    // Se l'offerta non viene trovata, restituisci una risposta di errore.
+	    if (!offerOptional.isPresent())
+	        return responseManager.getResponse(404, "Offerta Non Trovata");
+
+	    // L'offerta viene accettata
+	    Offer existingOffer = offerOptional.get();
+	    
+	    // Assicurati che lo stato dell'offerta sia "In corso" prima di accettarla.
+	    if (!existingOffer.getState().equals("In corso"))
+	        return responseManager.getResponse(400, "Offerta non valida per l'accettazione");
+	    
+	    existingOffer.setState("accettata"); // Aggiunto per impostare lo stato come "accettata"
+
+	    // Ottieni l'oggetto associato all'offerta.
+	    Item associatedItem = existingOffer.getItem();
+
+	    // Verifica se l'oggetto è già stato venduto.
+	    if (!associatedItem.getState().equals("disponibile")) 
+	        return responseManager.getResponse(400, "Oggetto già stato venduto");
+	        // Cambia lo stato dell'oggetto in "Venduto".
+	        associatedItem.setState("Venduto");
+	       
+	     // Aggiorna la saleDate all'attuale data odierna.
+	        associatedItem.setSaleDate(LocalDate.now());
+	        // Aggiorna l'oggetto nel database.
+	        itemDao.save(associatedItem);
+	        
+	        /*associatedItem.getOffers().forEach(o -> {
+	         *  
+				o.setState("Rifiutata"); //R = rifiutata , tutte le altre offerte vengono rifiutate 
+				});*/
+
+	    // Tutte le altre offerte associate a questo oggetto (tranne quella già accettata) vengono rifiutate.
+	       List<Offer> otherOffers = offerDao.findAllByItemAndState(associatedItem, "In Corso");
+	        for (Offer otherOffer : otherOffers) {
+	            otherOffer.setState("Rifiutata");
+	            offerDao.save(otherOffer);
+	        }
+
+	    // Aggiorna l'offerta nel database.
+	    offerDao.save(existingOffer);
+
+	    return responseManager.getResponse(200, "Offerta accettata con successo e stato dell'oggetto aggiornato a venduto");
+	}
+	
+	
 	@Override
 	public ObjectNode offerRemoval(int id, String token) {
 		// TODO Auto-generated method stub

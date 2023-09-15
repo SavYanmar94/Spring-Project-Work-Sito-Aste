@@ -46,7 +46,7 @@ public class ItemServiceImpl implements ItemService {
 
 	@Override
 	public ObjectNode itemUpdate(Item item, String token) {
-		// TODO Auto-generated method stub
+		//solo lo status 
 		return null;
 	}
 
@@ -73,7 +73,7 @@ public class ItemServiceImpl implements ItemService {
 		user.getItems().remove(item);
 		item.getOffers().forEach(o -> {
 			o.setItem(null);
-			o.setState("R"); //R = ritirata 
+			o.setState("R"); //R = rifiutata , tutte le altre offerte vengono rifiutate 
 			});
 		offerDao.saveAll(item.getOffers());
 		itemDao.delete(item);
