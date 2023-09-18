@@ -35,7 +35,7 @@ public class ItemServiceImpl implements ItemService {
 	public ObjectNode itemRegistration(Item item, String token) {
 		if(userDao.findByAuthToken(token) == null)
 			return responseManager.getResponse(401, "Not Authorized");
-		Optional<User> userOptional = userDao.findById(item.getUser().getId());
+		Optional<User> userOptional = userDao.findById(item.getSeller().getId());
 		if(!userOptional.isPresent())
 			return responseManager.getResponse(404, "User non trovato");
 		 // Imposta lo stato dell'item come "disponibile" e la registra nel database.
@@ -65,7 +65,7 @@ public class ItemServiceImpl implements ItemService {
 			return responseManager.getResponse(404, "Prodotto non trovato");
 
 		Item item = itemOptional.get();
-		if(item.getUser().getId() != user.getId())  //da rivedere 
+		if(item.getSeller().getId() != user.getId())  //da rivedere 
 			return responseManager.getResponse(401, "Non autorizzato");
 		if(item.getState().toLowerCase().equals("v")) // V = venduto
 			return responseManager.getResponse(406, "Oggetto non ritrattabile");

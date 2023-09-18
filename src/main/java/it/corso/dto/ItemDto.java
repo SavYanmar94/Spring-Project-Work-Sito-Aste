@@ -13,6 +13,8 @@ public class ItemDto
 	    private String image;
 	    private String state;
 	    
+	    private SellerDto seller;
+	    
 		public int getId() {
 			return id;
 		}
@@ -61,5 +63,13 @@ public class ItemDto
 		public void setState(String state) {
 			this.state = state;
 		}
+		public SellerDto getSeller() {
+			return seller;
+		}
+		public void setSeller(SellerDto seller) {
+			this.seller = seller;
+		}
+		
+		
 	    
 }

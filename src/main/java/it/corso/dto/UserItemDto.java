@@ -14,8 +14,7 @@ public class UserItemDto
 	private String image;
 	private String state; 
 	
-	private UserDto user;
-	private List<OfferDto> offers;
+	private List<UserItemOfferDto> offers;
 	
 	public int getId() {
 		return id;
@@ -65,19 +64,14 @@ public class UserItemDto
 	public void setState(String state) {
 		this.state = state;
 	}
-	
-	public UserDto getUser() {
-		return user;
-	}
-	public void setUser(UserDto user) {
-		this.user = user;
-	}
-	public List<OfferDto> getOffers() {
+	public List<UserItemOfferDto> getOffers() {
 		return offers;
 	}
-	public void setOffers(List<OfferDto> offers) {
+	public void setOffers(List<UserItemOfferDto> offers) {
 		this.offers = offers;
 	}
+	
+	
 
 	
 }

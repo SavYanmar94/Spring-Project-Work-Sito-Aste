@@ -1,6 +1,7 @@
 package it.corso.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class OfferDto 
 {
@@ -8,6 +9,9 @@ public class OfferDto
 	    private LocalDate timing;
 	    private double amount;
 	    private String state;
+	    private OfferUserDto user;
+	    private ItemDto items;
+	    
 	    
 		public int getId() {
 			return id;

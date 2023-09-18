@@ -1,29 +1,24 @@
 package it.corso.dto;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import it.corso.model.HomeAddress;
-import it.corso.model.Offer;
 import it.corso.model.ShippingAddress;
 
-public class OfferUserDto 
-{
-	private int id;
-    private LocalDate entryDate;
-    private String name;
-    private String lastname;
-    private String mail;
-    private String taxcode;
-    private String nickname;
-    private String password;
-    private String profileImage;
-    private String profileType;
+public class OffererDto {
 
-    private HomeAddress homeAddress;
-    private ShippingAddress shippingAddress;
-    
+	private int id;
+	private LocalDate entryDate;	
+	private String name;
+	private String lastname;
+	private String mail;
+	private String taxcode;
+	private String nickname;
+	
+	private HomeAddress homeAddress;
+	private ShippingAddress shippingAddress;
+	
 	public int getId() {
 		return id;
 	}
@@ -66,24 +61,6 @@ public class OfferUserDto
 	public void setNickname(String nickname) {
 		this.nickname = nickname;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	public String getProfileImage() {
-		return profileImage;
-	}
-	public void setProfileImage(String profileImage) {
-		this.profileImage = profileImage;
-	}
-	public String getProfileType() {
-		return profileType;
-	}
-	public void setProfileType(String profileType) {
-		this.profileType = profileType;
-	}
 	public HomeAddress getHomeAddress() {
 		return homeAddress;
 	}
@@ -96,7 +73,8 @@ public class OfferUserDto
 	public void setShippingAddress(ShippingAddress shippingAddress) {
 		this.shippingAddress = shippingAddress;
 	}
-	    
-		
-	    
+	
+	
+
+	
 }

@@ -49,7 +49,7 @@ public class OfferServiceImpl implements OfferService{
 		if(!itemOptional.isPresent())
 			return responseManager.getResponse(404, "Oggetto in vendita non trovato");
 		Item item = itemOptional.get();
-	    User seller = item.getUser();
+	    User seller = item.getSeller();
 	    if (seller.getId() == loggedInUser.getId()) {
 	        return responseManager.getResponse(400, "Non puoi fare un'offerta per l'oggetto che stai vendendo");
 	    }

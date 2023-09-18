@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+
+import it.corso.dto.UserDto;
 import it.corso.helper.PasswordValidationException;
 import it.corso.model.HomeAddress;
 import it.corso.model.ShippingAddress;
@@ -79,6 +81,19 @@ public class UserController {
 			return new ResponseEntity<ObjectNode>(response, HttpStatusCode.valueOf(response.get("code").asInt()));
 		}
 	
+		
+	  //endpoint #5 : dati completi utente loggato
+		
+		// endpoint #5: dati clienti loggato localhost:8080/auctions/user/get/{user token}
+		@GetMapping("/get/{tkn}")
+		public ResponseEntity<UserDto> getUserData(@PathVariable("tkn") String token)
+		{
+			UserDto response = userService.getUserData(token);
+			return new ResponseEntity<UserDto>(response, HttpStatus.OK);
+		}
+		
+		
+		
 	// metodo per gestione eccezione validazione password
 		@ExceptionHandler(PasswordValidationException.class)
 		public ResponseEntity<String> handlePasswordValidationException(PasswordValidationException e)

@@ -1,5 +1,7 @@
 package it.corso.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -11,6 +13,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.corso.dao.HomeAddressDao;
 import it.corso.dao.ShippingAddressDao;
 import it.corso.dao.UserDao;
+import it.corso.dto.UserDto;
 import it.corso.helper.ResponseManager;
 import it.corso.helper.SecurityManager;
 import it.corso.model.HomeAddress;
@@ -116,5 +119,25 @@ public class UserServiceImpl implements UserService {
 	        //shippingAddressDao.save(existingSA);
 	        return responseManager.getResponse(202, "Dati User Aggiornati");
 	    }
+
+	@Override
+	public List<UserDto> getUsers(String token) {
+		List<UserDto> usersDto = new ArrayList<>();
+		if(userDao.findByAuthToken(token) == null)
+			return usersDto;
+		List<User> users = (List<User>) userDao.findAll();
+		users.forEach(u -> usersDto.add(mapper.map(u, UserDto.class)));
+		return usersDto;
+	}
+	
+	@Override
+	public UserDto getUserData(String token) {
+		User user = userDao.findByAuthToken(token);
+		if(user == null)
+			return new UserDto();
+		UserDto userDto = mapper.map(user, UserDto.class);
+		userDto.setPassword(SecurityManager.decode(userDto.getPassword()));
+		return userDto;
+	}
 
 }

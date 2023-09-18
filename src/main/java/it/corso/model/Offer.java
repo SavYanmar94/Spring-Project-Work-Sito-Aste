@@ -38,7 +38,7 @@ public class Offer
 	
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "offerer_id", referencedColumnName = "id")
-	private User user;
+	private User offerer;
 
 	public int getId() {
 		return id;
@@ -80,16 +80,17 @@ public class Offer
 		this.item = item;
 	}
 
-	public User getUser() {
-		return user;
+	public User getOfferer() {
+		return offerer;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setOfferer(User offerer) {
+		this.offerer = offerer;
 	}
 
 	
-	
+
+
 	
 }
 

@@ -53,7 +53,7 @@ public class Item
 
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "seller_id", referencedColumnName = "id")
-	private User user;
+	private User seller;
 	
 	@OneToMany
     (
@@ -130,12 +130,13 @@ public class Item
 		this.state = state;
 	}
 
-	public User getUser() {
-		return user;
+	
+	public User getSeller() {
+		return seller;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setSeller(User seller) {
+		this.seller = seller;
 	}
 
 	public List<Offer> getOffers() {
