@@ -40,14 +40,35 @@ public class OfferServiceImpl implements OfferService{
 
 	@Override
 	public ObjectNode offerRegistration(Offer offer, String token) {
-		if(userDao.findByAuthToken(token) == null)
-			return responseManager.getResponse(401, "Non sei autorizzato");
-		Optional<User> userOptional = userDao.findById(offer.getUser().getId());
-		if(!userOptional.isPresent())
-			return responseManager.getResponse(404, "User non trovato");
+		
+		User loggedInUser = userDao.findByAuthToken(token);
+		   if (loggedInUser == null) {
+		       return responseManager.getResponse(401, "Non sei autorizzato");
+		   }
 		Optional<Item> itemOptional = itemDao.findById(offer.getItem().getId());
 		if(!itemOptional.isPresent())
 			return responseManager.getResponse(404, "Oggetto in vendita non trovato");
+		Item item = itemOptional.get();
+	    User seller = item.getUser();
+	    if (seller.getId() == loggedInUser.getId()) {
+	        return responseManager.getResponse(400, "Non puoi fare un'offerta per l'oggetto che stai vendendo");
+	    }
+
+	    // Verifica se l'offerta è maggiore o uguale al prezzo iniziale dell'oggetto.
+	    if (offer.getAmount() <= item.getAuctionBase()) {
+	        return responseManager.getResponse(400, "L'offerta deve essere maggiore al prezzo iniziale dell'oggetto");
+	    }
+	    //iterare la lista della offerte dell'articolo, trovare quella maggiore , e confrontarla con quella 
+	    //che arriva. 
+	    // Verifica se l'offerta è maggiore o uguale a tutte le offerte relative a questo oggetto.
+	    List<Offer> otherOffers = offerDao.findAllByItemAndState(item, "In Corso");
+	    for (Offer otherOffer : otherOffers) {
+	        if (offer.getAmount() <= otherOffer.getAmount()) {
+	            return responseManager.getResponse(400, "L'offerta deve essere maggiore a tutte le offerte relative a questo oggetto");
+	        }
+	    }
+	    
+	    
 		offer.setState("In corso");
 		offerDao.save(offer);
 		return responseManager.getResponse(201, "Offerta Registrata");
