@@ -1,5 +1,6 @@
 package it.corso.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -45,6 +46,7 @@ public class UserServiceImpl implements UserService {
 		if(userDao.findByNickname(user.getNickname()) != null)
 			return responseManager.getResponse(406, "Nickname già esistente");
 		user.setPassword(SecurityManager.encode(user.getPassword()));
+		user.setEntryDate(LocalDate.now());
 		userDao.save(user);
 		return responseManager.getResponse(201, "User registrato correttamente");
 	}
@@ -82,7 +84,7 @@ public class UserServiceImpl implements UserService {
 	        // Aggiornamento dei campi utente
 	        existing.setName(user.getName());
 	        existing.setLastname(user.getLastname());
-	        existing.setEntryDate(user.getEntryDate());
+	        //existing.setEntryDate(user.getEntryDate());
 	        existing.setMail(user.getMail());
 	        existing.setTaxcode(user.getTaxcode());
 	        existing.setPassword(user.getPassword());
