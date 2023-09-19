@@ -1,8 +1,10 @@
 package it.corso.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import it.corso.dao.ItemDao;
 import it.corso.dao.OfferDao;
 import it.corso.dao.UserDao;
+import it.corso.dto.ItemDto;
 import it.corso.helper.ResponseManager;
 import it.corso.model.Item;
 import it.corso.model.User;
@@ -29,6 +32,9 @@ public class ItemServiceImpl implements ItemService {
 	
 	@Autowired
 	private OfferDao offerDao;
+	
+	private ModelMapper mapper = new ModelMapper();
+
 
 	//registrazione item 
 	@Override
@@ -85,5 +91,16 @@ public class ItemServiceImpl implements ItemService {
 	public List<Item> getItems() {
 		return (List<Item>) itemDao.findAll();
 	}
+
+//	@Override
+//	public List<ItemDto> getItemUser( String token) 
+//	{
+//		List<ItemDto> itemsDto = new ArrayList<>();
+//		if(userDao.findByAuthToken(token) == null)
+//			return itemsDto;
+//		List<Item> items = (List<Item>) itemDao.findAll();
+//		items.forEach(i -> itemsDto.add(mapper.map(i, ItemDto.class)));
+//		return itemsDto;
+//	}
 
 }

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import it.corso.dto.ItemDto;
 import it.corso.model.Item;
 import it.corso.service.ItemService;
 
@@ -55,6 +57,12 @@ public class ItemController {
 		return new ResponseEntity<List<Item>>(response, HttpStatus.OK);
 	}
 	
-	
+	//endpoint 5: elenco degli item user localhost:8080/auctions/item/get/{tkn}
+
+//	@GetMapping("/get/{tkn}")
+//	public ResponseEntity<List<ItemDto>> getItemUser(@Parameter(description = "User Authorization token") @PathVariable("tkn")String token) {
+//		List<ItemDto> response = itemService.getItemUser(token);
+//		return new ResponseEntity<List<ItemDto>> (response,HttpStatus.OK);
+//	}
 	
 }

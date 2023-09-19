@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import it.corso.dto.ItemDto;
 import it.corso.model.Item;
 
 public interface ItemService {
@@ -18,5 +19,7 @@ public interface ItemService {
 	ObjectNode itemRemoval(int id, String token);
 	
 	List<Item> getItems();
+	
+	//List<ItemDto> getItemUser( String token);
 
 }
