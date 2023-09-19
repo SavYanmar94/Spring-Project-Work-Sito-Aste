@@ -37,9 +37,8 @@ public class ShippingAddress
 			
 			@Pattern(regexp = "[a-zA-Z]{2}", message = "Errore nel campo provincia")
 			@Column(name = "province")
-			
-			// setter, getter
 			private String province;
+			
 
 			public int getId() {
 				return id;
