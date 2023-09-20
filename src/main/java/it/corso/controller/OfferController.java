@@ -19,9 +19,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import it.corso.helper.ResponseManager;
 import it.corso.model.Offer;
-import it.corso.model.User;
 import it.corso.service.OfferService;
-import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auctions/offer")

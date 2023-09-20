@@ -1,7 +1,6 @@
 package it.corso.dto;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import it.corso.model.HomeAddress;
 import it.corso.model.ShippingAddress;

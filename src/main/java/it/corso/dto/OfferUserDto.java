@@ -1,11 +1,7 @@
 package it.corso.dto;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-
 import it.corso.model.HomeAddress;
-import it.corso.model.Offer;
 import it.corso.model.ShippingAddress;
 
 public class OfferUserDto 

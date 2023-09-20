@@ -23,8 +23,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import it.corso.dto.UserDto;
 import it.corso.helper.PasswordValidationException;
-import it.corso.model.HomeAddress;
-import it.corso.model.ShippingAddress;
 import it.corso.model.User;
 import it.corso.service.UserService;
 import jakarta.validation.Valid;

@@ -1,8 +1,6 @@
 package it.corso.service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
@@ -122,7 +120,7 @@ public class UserServiceImpl implements UserService {
 	        return responseManager.getResponse(202, "Dati User Aggiornati");
 	    }
 
-	@Override
+	/*@Override
 	public List<UserDto> getUsers(String token) {
 		List<UserDto> usersDto = new ArrayList<>();
 		if(userDao.findByAuthToken(token) == null)
@@ -130,7 +128,7 @@ public class UserServiceImpl implements UserService {
 		List<User> users = (List<User>) userDao.findAll();
 		users.forEach(u -> usersDto.add(mapper.map(u, UserDto.class)));
 		return usersDto;
-	}
+	}*/
 	
 	@Override
 	public UserDto getUserData(String token) {

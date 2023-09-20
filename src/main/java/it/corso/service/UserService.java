@@ -1,12 +1,7 @@
 package it.corso.service;
 
-import java.util.List;
-
 import com.fasterxml.jackson.databind.node.ObjectNode;
-
 import it.corso.dto.UserDto;
-import it.corso.model.HomeAddress;
-import it.corso.model.ShippingAddress;
 import it.corso.model.User;
 
 public interface UserService {
@@ -20,7 +15,7 @@ public interface UserService {
 	
 	ObjectNode userUpdate(User user, String token);
 	
-	List<UserDto> getUsers(String token);
+	//List<UserDto> getUsers(String token);
 
 	UserDto getUserData(String token);
 
