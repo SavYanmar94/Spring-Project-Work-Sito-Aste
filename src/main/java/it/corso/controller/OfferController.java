@@ -42,7 +42,7 @@ public class OfferController {
 	}
 	//endpoint n.2 stampa lista offerte : localhost:8080/auctions/offer/get
 	@GetMapping("/get")
-	public ResponseEntity<List<Offer>> getOfferts() 
+	public ResponseEntity<List<Offer>> getOffers() 
 	{
 			
 	     List<Offer> response = offerService.getOffers();
