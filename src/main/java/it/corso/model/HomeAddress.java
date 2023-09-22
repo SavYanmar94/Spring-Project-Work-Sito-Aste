@@ -14,6 +14,7 @@ public class HomeAddress
 {
 	//pojo
 	//attributi
+	//annotation ID 
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		private int id;

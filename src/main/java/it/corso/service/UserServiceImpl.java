@@ -1,7 +1,9 @@
 package it.corso.service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.OptionalDouble;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,12 +12,16 @@ import org.springframework.stereotype.Service;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import it.corso.dao.HomeAddressDao;
+import it.corso.dao.OfferDao;
 import it.corso.dao.ShippingAddressDao;
 import it.corso.dao.UserDao;
 import it.corso.dto.UserDto;
+import it.corso.dto.UserItemDto;
+import it.corso.dto.UserItemOfferDto;
 import it.corso.helper.ResponseManager;
 import it.corso.helper.SecurityManager;
 import it.corso.model.HomeAddress;
+import it.corso.model.Offer;
 import it.corso.model.ShippingAddress;
 import it.corso.model.User;
 
@@ -24,6 +30,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private OfferDao offerDao;
 	
 	@Autowired 
 	private HomeAddressDao homeAddressDao;
@@ -137,6 +146,38 @@ public class UserServiceImpl implements UserService {
 			return new UserDto();
 		UserDto userDto = mapper.map(user, UserDto.class);
 		userDto.setPassword(SecurityManager.decode(userDto.getPassword()));
+		
+		
+		
+		List<UserItemDto> items = userDto.getItems();
+		
+		for (UserItemDto item : items) {
+			
+			double majorOffer = 0;
+			
+			for (UserItemOfferDto offer : item.getOffers()) {
+				if (offer.getAmount() > majorOffer) {
+					majorOffer = offer.getAmount();
+				}
+			}
+			
+			item.setMajorOffer(majorOffer);
+		}
+		
+		/*userDto.getOffers().forEach(o -> {
+			if(o.getItem() != null)
+			{
+				List<Offer> allOffers = offerDao.findByItemId(o.getItem().getId());
+				OptionalDouble majorOffer = allOffers
+						.stream()
+						.mapToDouble(Offer::getAmount)
+						.max();
+				if(majorOffer.isPresent())
+					o.getItem().setMajorOffer(majorOffer.getAsDouble());
+			}
+		});*/
+
+		
 		return userDto;
 	}
 

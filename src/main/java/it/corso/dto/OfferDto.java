@@ -36,6 +36,19 @@ public class OfferDto
 		public void setState(String state) {
 			this.state = state;
 		}
+		public OfferUserDto getUser() {
+			return user;
+		}
+		public void setUser(OfferUserDto user) {
+			this.user = user;
+		}
+		public ItemDto getItems() {
+			return items;
+		}
+		public void setItems(ItemDto items) {
+			this.items = items;
+		}
 	    
+		
 
 }

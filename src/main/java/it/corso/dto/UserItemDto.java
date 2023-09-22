@@ -13,6 +13,8 @@ public class UserItemDto
 	private double auctionBase;
 	private String image;
 	private String state; 
+	private double majorOffer = 0;
+	
 	
 	private List<UserItemOfferDto> offers;
 	
@@ -69,6 +71,12 @@ public class UserItemDto
 	}
 	public void setOffers(List<UserItemOfferDto> offers) {
 		this.offers = offers;
+	}
+	public double getMajorOffer() {
+		return majorOffer;
+	}
+	public void setMajorOffer(double majorOffer) {
+		this.majorOffer = majorOffer;
 	}
 	
 	

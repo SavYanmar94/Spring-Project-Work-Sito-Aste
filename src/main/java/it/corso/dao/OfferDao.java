@@ -11,4 +11,6 @@ public interface OfferDao extends CrudRepository<Offer, Integer>{
 
 	List<Offer> findAllByItemAndState(Item associatedItem, String string);
 
+	List<Offer> findByItemId(int itemId);
+
 }
