@@ -94,7 +94,7 @@ public class UserServiceImpl implements UserService {
 	        //existing.setEntryDate(user.getEntryDate());
 	        existing.setMail(user.getMail());
 	        existing.setTaxcode(user.getTaxcode());
-	        existing.setPassword(user.getPassword());
+	        existing.setPassword(SecurityManager.encode(user.getPassword()));
 	        existing.setProfileImage(user.getProfileImage());
 	        
 	        Optional<HomeAddress> homeAddressOptional = homeAddressDao.findById(user.getHomeAddress().getId());
