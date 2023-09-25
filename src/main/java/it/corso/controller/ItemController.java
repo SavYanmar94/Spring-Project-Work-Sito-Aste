@@ -51,10 +51,10 @@ public class ItemController {
 	
 	//endpoint 4: elenco degli item localhost:8080/auctions/item/get
 	@GetMapping("/get")
-	public ResponseEntity<List<Item>> getItems() {
+	public ResponseEntity<List<ItemDto>> getItems() {
 			
-		List<Item> response = itemService.getItems();
-		return new ResponseEntity<List<Item>>(response, HttpStatus.OK);
+		List<ItemDto> response = itemService.getItems();
+		return new ResponseEntity<List<ItemDto>>(response, HttpStatus.OK);
 	}
 	
 	//endpoint 5: elenco degli item user localhost:8080/auctions/item/get/{tkn}

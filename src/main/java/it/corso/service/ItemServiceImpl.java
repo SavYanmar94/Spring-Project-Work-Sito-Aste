@@ -14,6 +14,7 @@ import it.corso.dao.ItemDao;
 import it.corso.dao.OfferDao;
 import it.corso.dao.UserDao;
 import it.corso.dto.ItemDto;
+
 import it.corso.helper.ResponseManager;
 import it.corso.model.Item;
 import it.corso.model.User;
@@ -85,12 +86,26 @@ public class ItemServiceImpl implements ItemService {
 		itemDao.delete(item);
 		return responseManager.getResponse(202, "Oggetto ritirato");
 	}
-	
-	// lista item
+
 	@Override
-	public List<Item> getItems() {
-		return (List<Item>) itemDao.findAll();
+	public List<ItemDto> getItems() {
+		List<ItemDto> itemsDto = new ArrayList<>();
+		List<Item> items = (List<Item>) itemDao.findAll();
+		items.forEach(o -> itemsDto.add(mapper.map(o, ItemDto.class)));
+		return itemsDto;
 	}
+	
+	
+	/*// lista item
+	@Override
+	public List<ItemDto> getItems() {
+		List<ItemDto> itemsDto = new ArrayList<>();
+		List<Item> items = (List<Item>) itemDao.findAll();
+		items.forEach(o -> itemsDto.add(mapper.map(o, ItemDto.class)));
+		return itemsDto;
+		
+		
+	}*/
 
 //	@Override
 //	public List<ItemDto> getItemUser( String token) 

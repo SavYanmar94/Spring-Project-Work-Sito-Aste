@@ -18,8 +18,8 @@ public interface ItemService {
 	//ritiro oggetto
 	ObjectNode itemRemoval(int id, String token);
 	
-	List<Item> getItems();
+	List<ItemDto> getItems();
 	
-	//List<ItemDto> getItemUser( String token);
+
 
 }
