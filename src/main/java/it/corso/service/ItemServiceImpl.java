@@ -95,21 +95,19 @@ public class ItemServiceImpl implements ItemService {
 		List<ItemDto> itemsDto = new ArrayList<>();
 		List<Item> items = (List<Item>) itemDao.findAll();
 		items.forEach(o -> itemsDto.add(mapper.map(o, ItemDto.class)));
-		
-		List<ItemOfferDto> itemOffers = ((ItemDto) itemsDto).getOffers();
-			
+		itemsDto.forEach(i -> {
+			List<ItemOfferDto> itemOffers = i.getOffers();
 			double majorOffer = 0;
-			
-			for (ItemOfferDto offer : ((ItemDto) itemsDto).getOffers()) {
+
+			for (ItemOfferDto offer : itemOffers) {
 				if (offer.getAmount() > majorOffer) {
 					majorOffer = offer.getAmount();
-					
-					((ItemDto) itemsDto).setMajorOffer(majorOffer);
+
+					i.setMajorOffer(majorOffer);
 				}
-			
-			
-		}
-		
+			}
+		});
+
 		return itemsDto;
 	}
 	

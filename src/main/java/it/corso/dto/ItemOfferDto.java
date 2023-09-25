@@ -9,7 +9,6 @@ public class ItemOfferDto {
 	private double amount;
 	private String state;
 	
-    private ItemDto item;
 
 	public int getId() {
 		return id;
@@ -42,14 +41,6 @@ public class ItemOfferDto {
 	public void setState(String state) {
 		this.state = state;
 	}
-
-	public ItemDto getItem() {
-		return item;
-	}
-
-	public void setItem(ItemDto item) {
-		this.item = item;
-	}
-    
+  
     
 }
