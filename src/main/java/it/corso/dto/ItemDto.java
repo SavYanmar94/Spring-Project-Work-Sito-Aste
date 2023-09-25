@@ -1,6 +1,7 @@
 package it.corso.dto;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class ItemDto 
 {
@@ -12,6 +13,9 @@ public class ItemDto
 	    private double auctionBase;
 	    private String image;
 	    private String state;
+	    private double majorOffer = 0;
+	    
+	    private List<ItemOfferDto> offers;
 	    
 	    private SellerDto seller;
 	    
@@ -68,6 +72,18 @@ public class ItemDto
 		}
 		public void setSeller(SellerDto seller) {
 			this.seller = seller;
+		}
+		public double getMajorOffer() {
+			return majorOffer;
+		}
+		public void setMajorOffer(double majorOffer) {
+			this.majorOffer = majorOffer;
+		}
+		public List<ItemOfferDto> getOffers() {
+			return offers;
+		}
+		public void setOffers(List<ItemOfferDto> offers) {
+			this.offers = offers;
 		}
 		
 		

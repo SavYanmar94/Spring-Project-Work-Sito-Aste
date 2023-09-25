@@ -14,9 +14,12 @@ import it.corso.dao.ItemDao;
 import it.corso.dao.OfferDao;
 import it.corso.dao.UserDao;
 import it.corso.dto.ItemDto;
-
+import it.corso.dto.ItemOfferDto;
+import it.corso.dto.UserItemDto;
+import it.corso.dto.UserItemOfferDto;
 import it.corso.helper.ResponseManager;
 import it.corso.model.Item;
+import it.corso.model.Offer;
 import it.corso.model.User;
 
 @Service
@@ -92,8 +95,27 @@ public class ItemServiceImpl implements ItemService {
 		List<ItemDto> itemsDto = new ArrayList<>();
 		List<Item> items = (List<Item>) itemDao.findAll();
 		items.forEach(o -> itemsDto.add(mapper.map(o, ItemDto.class)));
+		
+		List<ItemOfferDto> itemOffers = ((ItemDto) itemsDto).getOffers();
+			
+			double majorOffer = 0;
+			
+			for (ItemOfferDto offer : ((ItemDto) itemsDto).getOffers()) {
+				if (offer.getAmount() > majorOffer) {
+					majorOffer = offer.getAmount();
+					
+					((ItemDto) itemsDto).setMajorOffer(majorOffer);
+				}
+			
+			
+		}
+		
 		return itemsDto;
 	}
+	
+	//creare ItemOfferDto
+	//aggiungere il getOffers a itemsDto
+	
 	
 	
 	/*// lista item
