@@ -115,7 +115,7 @@ public class ItemServiceImpl implements ItemService {
 				}
 			}
 		});
-		Comparator<ItemDto> comparator = Comparator.comparing(ItemDto::getPlacementDate).reversed();
+		Comparator<ItemDto> comparator = Comparator.comparing(ItemDto::getId).reversed();
 		itemsDto.sort(comparator);
 		return itemsDto;
 	}
