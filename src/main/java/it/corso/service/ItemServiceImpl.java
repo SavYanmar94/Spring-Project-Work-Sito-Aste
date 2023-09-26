@@ -102,7 +102,7 @@ public class ItemServiceImpl implements ItemService {
 		List<ItemDto> itemsDto = new ArrayList<>();
 		List<Item> items = (List<Item>) itemDao.findAll();
 		items.forEach(o -> itemsDto.add(mapper.map(o, ItemDto.class)));
-		itemsDto.sort(Comparator.comparing(ItemDto::getPlacementDate).reversed());// ordino item in base alla data più recente
+		//itemsDto.sort(Comparator.comparing(ItemDto::getPlacementDate).reversed());// ordino item in base alla data più recente
 		
 		itemsDto.forEach(i -> {
 			List<ItemOfferDto> itemOffers = i.getOffers();
@@ -115,9 +115,9 @@ public class ItemServiceImpl implements ItemService {
 				}
 			}
 		});
-//			Comparator<ItemDto> comparator = Comparator.comparing(ItemDto::getPlacementDate).reversed();
-//			itemsDto.sort(comparator);
-			return itemsDto;
+		Comparator<ItemDto> comparator = Comparator.comparing(ItemDto::getPlacementDate).reversed();
+		itemsDto.sort(comparator);
+		return itemsDto;
 	}
 	
 	//creare ItemOfferDto
