@@ -52,6 +52,41 @@ public class UserServiceImpl implements UserService {
 		
 		if(userDao.findByNickname(user.getNickname()) != null)
 			return responseManager.getResponse(406, "Nickname già esistente");
+		
+		 //USER  Converto la prima lettera del nome iniziale in maiuscolo ed il resto minuscolo, prima verifico l'esistenza del campo
+	    if (user.getName() != null && !user.getName().isEmpty()) {
+	        user.setName(user.getName().substring(0, 1).toUpperCase() + user.getName().substring(1).toLowerCase());
+	    }
+
+	    // Converto la prima lettera del cognome iniziale in maiuscolo ed il resto minuscolo
+	    if (user.getLastname() != null && !user.getLastname().isEmpty()) {
+	        user.setLastname(user.getLastname().substring(0, 1).toUpperCase() + user.getLastname().substring(1).toLowerCase());
+	    }
+
+	    //HOMEADDRESS  Converto il campo 'town' in tutto maiuscolo
+	    if (user.getHomeAddress() != null && user.getHomeAddress().getTown() != null) {
+	        user.getHomeAddress().setTown(user.getHomeAddress().getTown().substring(0, 1).toUpperCase() + user.getHomeAddress().getTown().substring(1).toLowerCase());
+
+	    }
+
+	    // Converto il campo 'province' in tutto maiuscolo
+	    if (user.getHomeAddress() != null && user.getHomeAddress().getProvince() != null) {
+		   user.getHomeAddress().setProvince(user.getHomeAddress().getProvince().toUpperCase());
+
+	    }
+		
+	    // SHIPPINGADDRESS Converto il campo 'town' iniziale maiuscolo
+	    if (user.getShippingAddress() != null && user.getShippingAddress().getTown() != null) {
+	        user.getShippingAddress().setTown(user.getShippingAddress().getTown().substring(0, 1).toUpperCase() + user.getHomeAddress().getTown().substring(1).toLowerCase());
+
+	    }
+
+	    // Converto il campo 'province' maiuscolo
+	    if (user.getShippingAddress() != null && user.getShippingAddress().getProvince() != null) {
+			user.getShippingAddress().setProvince(user.getShippingAddress().getProvince().toUpperCase());
+	       
+	    }
+	    
 		user.setPassword(SecurityManager.encode(user.getPassword()));
 		user.setEntryDate(LocalDate.now());
 		userDao.save(user);
@@ -89,8 +124,8 @@ public class UserServiceImpl implements UserService {
 	        User existing = userOptional.get();
 
 	        // Aggiornamento dei campi utente
-	        existing.setName(user.getName());
-	        existing.setLastname(user.getLastname());
+	        existing.setName(user.getName().substring(0, 1).toUpperCase() + user.getName().substring(1).toLowerCase());
+	        existing.setLastname(user.getLastname().substring(0, 1).toUpperCase() + user.getLastname().substring(1).toLowerCase());
 	        //existing.setEntryDate(user.getEntryDate());
 	        existing.setMail(user.getMail());
 	        existing.setTaxcode(user.getTaxcode());
@@ -106,8 +141,8 @@ public class UserServiceImpl implements UserService {
 	            existingHA.setStreet(user.getHomeAddress().getStreet());
 	            existingHA.setCivic(user.getHomeAddress().getCivic());
 	            existingHA.setCap(user.getHomeAddress().getCap());
-	            existingHA.setTown(user.getHomeAddress().getTown());
-	            existingHA.setProvince(user.getHomeAddress().getProvince());
+	            existingHA.setTown(user.getHomeAddress().getTown().toUpperCase());
+	            existingHA.setProvince(user.getHomeAddress().getProvince().substring(0, 1).toUpperCase() + user.getHomeAddress().getProvince().substring(1).toLowerCase());
 	        
 	        
 	        Optional<ShippingAddress> shippingAddressOptional = shippingAddressDao.findById(user.getShippingAddress().getId());
@@ -119,8 +154,8 @@ public class UserServiceImpl implements UserService {
             existingSA.setStreet(user.getShippingAddress().getStreet());
             existingSA.setCivic(user.getShippingAddress().getCivic());
             existingSA.setCap(user.getShippingAddress().getCap());
-            existingSA.setTown(user.getShippingAddress().getTown());
-            existingSA.setProvince(user.getShippingAddress().getProvince());
+            existingSA.setTown(user.getShippingAddress().getTown().toUpperCase());
+            existingSA.setProvince(user.getShippingAddress().getProvince().substring(0, 1).toUpperCase() + user.getShippingAddress().getProvince().substring(1).toLowerCase());
 		    existing.setHomeAddress(existingHA);
 		    existing.setShippingAddress(existingSA);
 	        userDao.save(existing);
