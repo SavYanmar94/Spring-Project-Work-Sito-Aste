@@ -97,11 +97,13 @@ public class ItemServiceImpl implements ItemService {
 	}
 
 	@Override
-	public List<ItemDto> getItems() {
+	public List<ItemDto> getItems() 
+	{
 		List<ItemDto> itemsDto = new ArrayList<>();
 		List<Item> items = (List<Item>) itemDao.findAll();
 		items.forEach(o -> itemsDto.add(mapper.map(o, ItemDto.class)));
-			
+		itemsDto.sort(Comparator.comparing(ItemDto::getPlacementDate).reversed());// ordino item in base alla data più recente
+		
 		itemsDto.forEach(i -> {
 			List<ItemOfferDto> itemOffers = i.getOffers();
 			double majorOffer = 0;
@@ -109,14 +111,12 @@ public class ItemServiceImpl implements ItemService {
 			for (ItemOfferDto offer : itemOffers) {
 				if (offer.getAmount() > majorOffer) {
 					majorOffer = offer.getAmount();
-
 					i.setMajorOffer(majorOffer);
 				}
 			}
 		});
-		// ordino item in base alla data più recente
-			Comparator<ItemDto> comparator = Comparator.comparing(ItemDto::getPlacementDate).reversed();
-			itemsDto.sort(comparator);
+//			Comparator<ItemDto> comparator = Comparator.comparing(ItemDto::getPlacementDate).reversed();
+//			itemsDto.sort(comparator);
 			return itemsDto;
 	}
 	
