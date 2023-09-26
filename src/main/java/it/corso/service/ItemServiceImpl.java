@@ -1,6 +1,7 @@
 package it.corso.service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,14 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import java.util.Comparator;
 
 import it.corso.dao.ItemDao;
 import it.corso.dao.OfferDao;
 import it.corso.dao.UserDao;
 import it.corso.dto.ItemDto;
 import it.corso.dto.ItemOfferDto;
-import it.corso.dto.UserItemDto;
-import it.corso.dto.UserItemOfferDto;
 import it.corso.helper.ResponseManager;
 import it.corso.model.Item;
 import it.corso.model.Offer;
@@ -95,6 +95,7 @@ public class ItemServiceImpl implements ItemService {
 		List<ItemDto> itemsDto = new ArrayList<>();
 		List<Item> items = (List<Item>) itemDao.findAll();
 		items.forEach(o -> itemsDto.add(mapper.map(o, ItemDto.class)));
+			
 		itemsDto.forEach(i -> {
 			List<ItemOfferDto> itemOffers = i.getOffers();
 			double majorOffer = 0;
@@ -107,8 +108,10 @@ public class ItemServiceImpl implements ItemService {
 				}
 			}
 		});
-
-		return itemsDto;
+		// ordino item in base alla data più recente
+			Comparator<ItemDto> comparator = Comparator.comparing(ItemDto::getPlacementDate).reversed();
+			itemsDto.sort(comparator);
+			return itemsDto;
 	}
 	
 	//creare ItemOfferDto
