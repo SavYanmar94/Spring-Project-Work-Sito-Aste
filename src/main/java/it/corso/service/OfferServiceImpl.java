@@ -95,7 +95,7 @@ public class OfferServiceImpl implements OfferService{
 	        return responseManager.getResponse(400, "Offerta non valida per l'accettazione");
 	    
 	    // Assicurati che lo stato dell'offerta sia "In corso" prima di accettarla.
-	    if (!existingOffer.getState().equals("accettata"))
+	    if (existingOffer.getState().equals("accettata"))
 	        return responseManager.getResponse(400, "L'offerta è già stata accettata!");
 	    
 	    existingOffer.setState("accettata"); // Aggiunto per impostare lo stato come "accettata"
