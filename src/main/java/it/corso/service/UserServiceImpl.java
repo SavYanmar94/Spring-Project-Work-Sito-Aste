@@ -141,8 +141,8 @@ public class UserServiceImpl implements UserService {
 	            existingHA.setStreet(user.getHomeAddress().getStreet());
 	            existingHA.setCivic(user.getHomeAddress().getCivic());
 	            existingHA.setCap(user.getHomeAddress().getCap());
-	            existingHA.setTown(user.getHomeAddress().getTown().toUpperCase());
-	            existingHA.setProvince(user.getHomeAddress().getProvince().substring(0, 1).toUpperCase() + user.getHomeAddress().getProvince().substring(1).toLowerCase());
+	            existingHA.setTown(user.getHomeAddress().getTown().substring(0, 1).toUpperCase() + user.getHomeAddress().getTown().substring(1).toLowerCase());
+	            existingHA.setProvince(user.getHomeAddress().getProvince().toUpperCase());
 	        
 	        
 	        Optional<ShippingAddress> shippingAddressOptional = shippingAddressDao.findById(user.getShippingAddress().getId());
@@ -154,8 +154,8 @@ public class UserServiceImpl implements UserService {
             existingSA.setStreet(user.getShippingAddress().getStreet());
             existingSA.setCivic(user.getShippingAddress().getCivic());
             existingSA.setCap(user.getShippingAddress().getCap());
-            existingSA.setTown(user.getShippingAddress().getTown().toUpperCase());
-            existingSA.setProvince(user.getShippingAddress().getProvince().substring(0, 1).toUpperCase() + user.getShippingAddress().getProvince().substring(1).toLowerCase());
+            existingSA.setTown(user.getShippingAddress().getTown().substring(0, 1).toUpperCase() + user.getShippingAddress().getTown().substring(1).toLowerCase());
+            existingSA.setProvince(user.getShippingAddress().getProvince().toUpperCase());
 		    existing.setHomeAddress(existingHA);
 		    existing.setShippingAddress(existingSA);
 	        userDao.save(existing);

@@ -48,6 +48,12 @@ public class ItemServiceImpl implements ItemService {
 		Optional<User> userOptional = userDao.findById(item.getSeller().getId());
 		if(!userOptional.isPresent())
 			return responseManager.getResponse(404, "User non trovato");
+		 if (item.getName() != null && !item.getName().isEmpty()) {
+		        item.setName(item.getName().substring(0, 1).toUpperCase() + item.getName().substring(1).toLowerCase());
+		    }
+		 if (item.getDescription() != null && !item.getDescription().isEmpty()) {
+		        item.setDescription(item.getDescription().substring(0, 1).toUpperCase() + item.getDescription().substring(1));
+		    }
 		 // Imposta lo stato dell'item come "disponibile" e la registra nel database.
 		item.setState("disponibile");
 		itemDao.save(item);
