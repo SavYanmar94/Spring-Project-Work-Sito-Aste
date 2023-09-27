@@ -44,7 +44,7 @@ public class ItemServiceImpl implements ItemService {
 	@Override
 	public ObjectNode itemRegistration(Item item, String token) {
 		if(userDao.findByAuthToken(token) == null)
-			return responseManager.getResponse(401, "Not Authorized");
+			return responseManager.getResponse(401, "Non autorizzato");
 		Optional<User> userOptional = userDao.findById(item.getSeller().getId());
 		if(!userOptional.isPresent())
 			return responseManager.getResponse(404, "User non trovato");
@@ -55,7 +55,7 @@ public class ItemServiceImpl implements ItemService {
 		        item.setDescription(item.getDescription().substring(0, 1).toUpperCase() + item.getDescription().substring(1));
 		    }
 		 // Imposta lo stato dell'item come "disponibile" e la registra nel database.
-		item.setState("disponibile");
+		item.setState("Disponibile");
 		itemDao.save(item);
 		return responseManager.getResponse(201, "Articolo Inserito");
 	}

@@ -95,16 +95,16 @@ public class OfferServiceImpl implements OfferService{
 	        return responseManager.getResponse(400, "Offerta non valida per l'accettazione");*/
 	    
 	    // Assicurati che lo stato dell'offerta sia "In corso" prima di accettarla.
-	    if (existingOffer.getState().equals("accettata"))
+	    if (existingOffer.getState().equals("Accettata"))
 	        return responseManager.getResponse(400, "L'offerta è già stata accettata!");
 	    
-	    existingOffer.setState("accettata"); // Aggiunto per impostare lo stato come "accettata"
+	    existingOffer.setState("Accettata"); // Aggiunto per impostare lo stato come "accettata"
 
 	    // Ottieni l'oggetto associato all'offerta.
 	    Item associatedItem = existingOffer.getItem();
 
 	    // Verifica se l'oggetto è già stato venduto.
-	    if (!associatedItem.getState().equals("disponibile")) 
+	    if (!associatedItem.getState().equals("Disponibile")) 
 	        return responseManager.getResponse(400, "Oggetto già stato venduto");
 	        // Cambia lo stato dell'oggetto in "Venduto".
 	        associatedItem.setState("Venduto");
@@ -129,7 +129,7 @@ public class OfferServiceImpl implements OfferService{
 	    // Aggiorna l'offerta nel database.
 	    offerDao.save(existingOffer);
 
-	    return responseManager.getResponse(200, "Offerta accettata con successo e stato dell'oggetto aggiornato a venduto");
+	    return responseManager.getResponse(200, "Offerta accettata con successo ! stato dell'oggetto aggiornato a venduto.");
 	}
 	
 	
