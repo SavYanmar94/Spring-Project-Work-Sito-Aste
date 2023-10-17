@@ -1,5 +1,7 @@
 ## Project Work - Sito di Aste Online
 
+*Link della presentazione* : [clicca qui](https://www.canva.com/design/DAFvjZ2M-sE/aXOuneWuF9lojUDO1hB0Ng/edit)
+
 **Descrizione Incarico** : Viene commissionata al team, la realizzazione di una piattaforma di aste online attraverso la quale, Utenti non commerciali, possano proporre in vendita i propri beni e/o formulare offerte finalizzate all'acquisto di beni di altri.
 
 **Struttura Progetto** 
